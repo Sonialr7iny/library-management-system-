@@ -1,0 +1,29 @@
+# Python
+pycache/
+*.py[cod]
+
+# Virtual environment
+.venv/
+venv/
+
+# Environment variables / secrets
+.env
+*.key
+*.pem
+credentials.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Runtime data
+data/data.json

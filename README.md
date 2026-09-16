@@ -19,20 +19,18 @@ Features
 Project Structure
 
 Library-Management-System/
-│
 ├── app/
 │   ├── cli/
 │   ├── core/
 │   ├── models/
 │   ├── repositories/
-│   └── services/
-│
+│   ├── services/
+│   └── tests/
 ├── data/
-├── tests/
-│
 ├── .gitignore
 ├── README.md
 └── CONTRIBUTING.md
+
 
 Team
 

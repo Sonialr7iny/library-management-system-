@@ -1,41 +1,48 @@
-# Library Management System
+Library Management System
 
-## Overview
+Overview
 
-A small library management system developed as a team to practice OOP, Clean Code, Git, Github, and collaborative software development.
+A small Library Management System developed as a team to practice:
 
-## Features
+- Object-Oriented Programming (OOP)
+- Clean Code principles
+- Git and GitHub
+- Collaborative software development
+
+Features
 
 - Manage books
 - Manage members
 - Manage loans
 - Persist data using JSON
 
-## Project Structure
+Project Structure
 
-Libraray MAnagement System/
-|
-|__app
-    |____Cli/
-    |____core/
-    |____models/
-    |____reposritories/
-    |____services/
-|__data/
-|__tests/
-|__.getignore
-|__README.md
-|__CONTRIBUTING.md
+Library-Management-System/
+│
+├── app/
+│   ├── cli/
+│   ├── core/
+│   ├── models/
+│   ├── repositories/
+│   └── services/
+│
+├── data/
+├── tests/
+│
+├── .gitignore
+├── README.md
+└── CONTRIBUTING.md
 
-## Team
+Team
 
 - Sonia Al-Ra'ini
 - Ahlam Basheer
 - Ruqaih Al-Taibi
 - Khlood Akram
 
-## Development Workflow
+Development Workflow
 
 We use GitHub Issues, feature branches, Pull Requests, and code reviews to manage and integrate changes.
 
-For detailes contributionn guidelines, see CONTRIBUTING.md
+For detailed contribution guidelines, see "CONTRIBUTING.md" (CONTRIBUTING.md).

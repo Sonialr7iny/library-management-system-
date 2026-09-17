@@ -43,3 +43,5 @@ class BookRepository:
         items = [item for item in self.list() if item.id != book_id]
         self._repo.replace_all([item.to_dict() for item in items])
         return book
+    
+    

@@ -4,8 +4,7 @@ from dataclasses import asdict, dataclass, field
 from enum import StrEnum
 from uuid import uuid4
 
-from app.exceptions import ValidationError
-
+from app.core.exceptions import ValidationError
 
 class State(StrEnum):
     BORROWED = "borrowed"

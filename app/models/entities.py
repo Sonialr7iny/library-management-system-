@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from enum import StrEnum
 from uuid import uuid4
+from app.exceptions import ValidationError
 
 
 class State(StrEnum):
@@ -10,12 +11,13 @@ class State(StrEnum):
     AVAILABLE = "available"
 
 
+
 @dataclass(slots=True)
 class Book:
     title: str
     author_name: str
     category: str
-    state : State =State.AVAILABLE
+    state : State =State.available
     id: str = field(default_factory=lambda: str(uuid4()))
 
     def to_dict(self) -> dict:
@@ -34,9 +36,9 @@ class Member:
 
     def __post_init__(self):
         if not self.name:
-            raise ValueError("Name cannot be empty.")
+            raise ValidationError("Name cannot be empty.")
         if not self.phone_number:
-            raise ValueError("Phone number cannot be empty.")
+            raise ValidationError("Phone number cannot be empty.")
 
     def to_dict(self) -> dict:
         return asdict(self)

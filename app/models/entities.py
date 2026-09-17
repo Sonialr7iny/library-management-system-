@@ -6,8 +6,8 @@ from uuid import uuid4
 
 
 class State(StrEnum):
-    TRUE = "true"
-    FALSE = "false"
+    BORROWED = "borrowed"
+    AVAILABLE = "available"
 
 
 @dataclass(slots=True)
@@ -15,7 +15,7 @@ class Book:
     title: str
     author_name: str
     category: str
-    state : State =State.FALSE
+    state : State =State.available
     id: str = field(default_factory=lambda: str(uuid4()))
 
     def to_dict(self) -> dict:

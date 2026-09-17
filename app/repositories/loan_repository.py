@@ -28,14 +28,14 @@ class LoanRepository:
 
     def add_loan(self,loan:Loan) -> None:
         loans=self.repository.get_all()
-        loans.append(loan.to_dict)
+        loans.append(loan.to_dict())
         self.repository.replace_all(loans)   
 
     def update_loan(self,loan_id:str,update_loan:Loan)-> None:
         loans=self.repository.get_all()
 
         for i,loan in enumerate(loans):
-            if loan["loan_id"]==update_loan:
+            if loan["id"]==update_loan.id:
                 loans[i]=update_loan.to_dict()
             self.repository.replace_all(loans)
             return            

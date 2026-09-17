@@ -4,7 +4,8 @@ from dataclasses import asdict, dataclass, field
 from enum import StrEnum
 from uuid import uuid4
 
-from app.core.exceptions import ValidationError
+
+
 
 class State(StrEnum):
     BORROWED = "borrowed"
@@ -30,11 +31,13 @@ class Book:
 
 @dataclass(slots=True)
 class Member:
+    id: str 
     name: str
     phone_number: str
-    id: str = field(default_factory=lambda: str(uuid4()))
 
     def __post_init__(self):
+        if not self.id:
+            raise ValidationError("Member ID cannot be empty.")
         if not self.name:
             raise ValidationError("Name cannot be empty.")
         if not self.phone_number:

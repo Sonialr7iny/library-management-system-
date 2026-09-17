@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from enum import StrEnum
 from uuid import uuid4
-from app.exceptions import ValidationError
 
+from app.core.exceptions import ValidationError
 
 class State(StrEnum):
     BORROWED = "borrowed"
@@ -17,7 +17,7 @@ class Book:
     title: str
     author_name: str
     category: str
-    state : State =State.available
+    state : State =State.AVAILABLE
     id: str = field(default_factory=lambda: str(uuid4()))
 
     def to_dict(self) -> dict:
@@ -44,6 +44,6 @@ class Member:
         return asdict(self)
     
     @classmethod
-    def from_dict(cls, data: dict) -> "Member":
+    def from_dict(cls, data: dict) -> Member:
         return cls(**data)   
 

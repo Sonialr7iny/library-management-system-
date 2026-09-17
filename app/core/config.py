@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+
 @dataclass(slots=True,frozen=True)
 class Settings:
     app_name: str="Library Management System"

@@ -22,7 +22,7 @@ class Book:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: dict) -> "Book":
+    def from_dict(cls, data: dict) -> Book:
         return cls(**data)
 
 

@@ -53,6 +53,7 @@ class Loan:
     member_id: str
     borow_date: str
     return_date: str | None=None
+    id: str = field(default_factory=lambda: str(uuid4()))
 
     def __post_init__(self):
             if not self.book_id:

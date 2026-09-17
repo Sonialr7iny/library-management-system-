@@ -15,14 +15,14 @@ class Book:
     title: str
     author_name: str
     category: str
-    state : State =State.available
+    state : State =State.AVAILABLE
     id: str = field(default_factory=lambda: str(uuid4()))
 
     def to_dict(self) -> dict:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: dict) -> "Book":
+    def from_dict(cls, data: dict) -> Book:
         return cls(**data)
 
 

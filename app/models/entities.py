@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from enum import StrEnum
 from uuid import uuid4
+
 from app.exceptions import ValidationError
 
 
@@ -44,6 +45,6 @@ class Member:
         return asdict(self)
     
     @classmethod
-    def from_dict(cls, data: dict) -> "Member":
+    def from_dict(cls, data: dict) -> Member:
         return cls(**data)   
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from enum import StrEnum
 from uuid import uuid4
+
 from app.exceptions import ValidationError
 
 

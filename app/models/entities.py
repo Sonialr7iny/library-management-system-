@@ -7,6 +7,7 @@ from uuid import uuid4
 from app.core.exceptions import ValidationError
 
 
+
 class State(StrEnum):
     BORROWED = "borrowed"
     AVAILABLE = "available"
@@ -47,4 +48,26 @@ class Member:
     @classmethod
     def from_dict(cls, data: dict) -> Member:
         return cls(**data)   
+
+@dataclass(slots=True)
+class Loan:
+    book_id: str
+    member_id: str
+    borow_date: str
+    return_date: str | None=None
+
+    def __post_init__(self):
+            if not self.book_id:
+                raise ValueError("Book id cannot be empty.")
+            if not self.member_id:
+                raise ValueError("Member id cannot be empty.")
+            if not self.borow_date:
+                            raise ValueError("Borrow date cannot be empty.")
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, data: dict) -> Loan:
+        return cls(**data)    
 

@@ -7,7 +7,6 @@ from uuid import uuid4
 from app.exceptions import ValidationError
 
 
-
 class State(StrEnum):
     BORROWED = "borrowed"
     AVAILABLE = "available"

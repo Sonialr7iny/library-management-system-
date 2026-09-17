@@ -44,6 +44,6 @@ class Member:
         return asdict(self)
     
     @classmethod
-    def from_dict(cls, data: dict) -> "Member":
+    def from_dict(cls, data: dict) -> Member:
         return cls(**data)   
 

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
+
 from app.core.exceptions import (
     BookNotFoundError,
     LoanNotFoundError,
@@ -29,19 +31,29 @@ class LoanService:
         """Borrow a book for a member."""
         book = self._book_repository.get_by_id(book_id)
         if not book:
-            raise BookNotFoundError(f"Book with ID '{book_id}' was not found.")
+            raise BookNotFoundError(
+                f"Book with ID '{book_id}' was not found."
+            )
 
-        if book.status != State.AVAILABLE:
+        if book.state != State.AVAILABLE:
             raise ValidationError("Book is not available for borrowing.")
 
         member = self._member_repository.get_by_id(member_id)
         if not member:
-            raise MemberNotFoundError(f"Member with ID '{member_id}' was not found.")
+            raise MemberNotFoundError(
+                f"Member with ID '{member_id}' was not found."
+            )
 
-        loan = self._loan_repository.add(book_id=book_id, member_id=member_id)
+        loan = Loan(
+            book_id=book.id,
+            member_id=member.id,
+            borrow_date=datetime.now(timezone.utc).isoformat(),
+        )
 
-        book.status = State.BORROWED
-        self._book_repository.update(book)
+        self._loan_repository.add(loan)
+
+        book.state = State.BORROWED
+        self._book_repository.save(book)
 
         return loan
 
@@ -49,19 +61,22 @@ class LoanService:
         """Return a borrowed book."""
         loan = self._loan_repository.get_by_id(loan_id)
         if not loan:
-            raise LoanNotFoundError(f"Loan with ID '{loan_id}' was not found.")
+            raise LoanNotFoundError(
+                f"Loan with ID '{loan_id}' was not found."
+            )
 
         if loan.return_date is not None:
             raise ValidationError("Book has already been returned.")
 
-        updated_loan = self._loan_repository.mark_as_returned(loan_id)
+        loan.return_date = datetime.now(timezone.utc).isoformat()
+        self._loan_repository.update(loan)
 
         book = self._book_repository.get_by_id(loan.book_id)
         if book:
-            book.status = State.AVAILABLE
-            self._book_repository.update(book)
+            book.state = State.AVAILABLE
+            self._book_repository.save(book)
 
-        return updated_loan
+        return loan
 
     def get_active_loans(self) -> list[Loan]:
         """Return all active loans."""

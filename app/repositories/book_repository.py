@@ -1,5 +1,5 @@
 from app.core.config import settings
-from app.core.exceptions import NotFoundError
+from app.core.exceptions import BookNotFoundError
 from app.models import Book
 from app.repositories.json_repository import JsonRepository
 

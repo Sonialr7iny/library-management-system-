@@ -27,10 +27,7 @@ class BookRepository:
             return [book for book in self.list() if book.category == category]
     
     def get_by_state(self, state: str) -> list[Book]:
-            return [book for book in self.list() if book.state == state]
-
-    def get_by_state(self, state: str) -> list[Book]:
-         return [book for book in self.list() if book.state == state]    
+            return [book for book in self.list() if book.state == state]  
     
     def save(self, book: Book) -> Book:
         items = [b for b in self.list() if b.id != book.id]

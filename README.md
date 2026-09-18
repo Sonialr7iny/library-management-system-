@@ -31,8 +31,6 @@ Project Structure
   - README.md
   - CONTRIBUTING.md
 
-
-
 Team
 
 - Sonia Al-Ra'ini
@@ -45,3 +43,17 @@ Development Workflow
 We use GitHub Issues, feature branches, Pull Requests, and code reviews to manage and integrate changes.
 
 For detailed contribution guidelines, see "CONTRIBUTING.md" (CONTRIBUTING.md).
+
+## CLI Screenshots
+
+### Main Menu
+
+![Main Menu](docs/screenshots/cli_ui.png)
+
+### Books
+
+![Books](docs/screenshots/books.png)
+
+### Members & Loans
+
+![Members and Loans](docs/screenshots/member.png)

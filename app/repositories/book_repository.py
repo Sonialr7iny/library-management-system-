@@ -8,14 +8,14 @@ class BookRepository:
     def __init__(self):
         self._repo = JsonRepository[Book](settings.data_file, "book")
 
-    def list(self) -> list[Book]:
+    def get_book(self) -> list[Book]:
         return [Book.from_dict(item) for item in self._repo.get_all()]
 
-    def get(self, book_id: str) -> Book:
+    def get_be_id(self, book_id: str) -> Book:
         for book in self.list():
             if book.id == book_id:
                 return book
-        raise NotFoundError(f"book not found: {book_id}")
+        raise BookNotFoundError(f"book not found: {book_id}")
 
     def get_by_author(self, author: str) -> list[Book]:
         return [book for book in self.list() if book.author_name == author]

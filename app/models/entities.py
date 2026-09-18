@@ -54,17 +54,17 @@ class Member:
 class Loan:
     book_id: str
     member_id: str
-    borow_date: str
+    borrow_date: str
     return_date: str | None=None
     id: str = field(default_factory=lambda: str(uuid4()))
 
     def __post_init__(self):
             if not self.book_id:
-                raise ValueError("Book id cannot be empty.")
+                raise ValidationError("Book id cannot be empty.")
             if not self.member_id:
-                raise ValueError("Member id cannot be empty.")
-            if not self.borow_date:
-                            raise ValueError("Borrow date cannot be empty.")
+                raise ValidationError("Member id cannot be empty.")
+            if not self.borrow_date:
+                raise ValidationError("Borrow date cannot be empty.")
 
     def to_dict(self) -> dict:
         return asdict(self)

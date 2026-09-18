@@ -47,7 +47,7 @@ class LoanService:
         loan = Loan(
             book_id=book.id,
             member_id=member.id,
-            borrow_date=datetime.now().isoformat(),
+            borrow_date=datetime.now(timezone.utc).isoformat(),
         )
 
         self._loan_repository.add(loan)
@@ -68,7 +68,7 @@ class LoanService:
         if loan.return_date is not None:
             raise ValidationError("Book has already been returned.")
 
-        loan.return_date = datetime.now().isoformat()
+        loan.return_date = datetime.now(timezone.utc).isoformat()
         self._loan_repository.update(loan)
 
         book = self._book_repository.get_by_id(loan.book_id)

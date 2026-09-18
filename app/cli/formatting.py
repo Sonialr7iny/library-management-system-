@@ -29,3 +29,38 @@ def show_success(message: str) -> None:
 def show_error(message: str) -> None:
     """Display an error message."""
     print(f"✗ {message}")
+    
+
+# def format_books(books) -> str:
+#     if not books:
+#         return "No books found."
+
+#     lines = []
+
+#     for index, book in enumerate(books, start=1):
+#         lines.append(
+#             f"{index}. {book.title}\n"
+#             f"   Author: {book.author_name}\n"
+#             f"   Category: {book.category}\n"
+#             f"   State: {book.state.value}\n"
+#             f"   ID: {book.id}"
+#         )
+
+#     return "\n\n".join(lines)
+
+def format_books(books) -> str:
+    if not books:
+        return "No books found."
+
+    lines = []
+
+    for index, book in enumerate(books, start=1):
+        lines.append(
+            f"{index}. {book.title}\n"
+            f"   Author: {book.author_name}\n"
+            f"   Category: {book.category}\n"
+            f"   State: {book.state.value}\n"
+            f"   ID: {book.id}"
+        )
+
+    return "\n\n".join(lines)

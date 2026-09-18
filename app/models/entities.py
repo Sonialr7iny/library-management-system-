@@ -21,23 +21,30 @@ class Book:
     state : State =State.AVAILABLE
     id: str = field(default_factory=lambda: str(uuid4()))
 
+    def __post_init__(self):
+        if not self.title:
+            raise ValidationError("Title cannot be empty.")
+        if not self.author_name:
+            raise ValidationError("Author name cannot be empty.")
+        if not self.category:
+            raise ValidationError("Category cannot be empty.")
     def to_dict(self) -> dict:
         return asdict(self)
 
     @classmethod
     def from_dict(cls, data: dict) -> Book:
+        data=data.copy()
+        data["state"]=State(data["state"])
         return cls(**data)
 
 
 @dataclass(slots=True)
 class Member:
-    id: str 
     name: str
     phone_number: str
-
+    id: str = field(default_factory=lambda: str(uuid4()))
+    
     def __post_init__(self):
-        if not self.id:
-            raise ValidationError("Member ID cannot be empty.")
         if not self.name:
             raise ValidationError("Name cannot be empty.")
         if not self.phone_number:

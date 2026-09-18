@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from app.core.exceptions import MemberNotFoundError
 from app.models.entities import Member
 from app.repositories.json_repository import JsonRepository
 
@@ -16,7 +17,7 @@ class MemberRepository:
         data = self._repository.get_all()
         return [Member.from_dict(item) for item in data]
 
-    def find_by_id(self, member_id: str) -> Member | None:
+    def get_by_id(self, member_id: str) -> Member | None:
         members = self.get_all()
 
         for member in members:
@@ -35,9 +36,8 @@ class MemberRepository:
         ]
 
     def add(self, member: Member) -> None:
-        if self.find_by_id(member.id) is not None:
+        if self.get_by_id(member.id) is not None:
             raise ValueError(f"Member with ID '{member.id}' already exists.")
-
         members = self.get_all()
         members.append(member)
 
@@ -57,7 +57,7 @@ class MemberRepository:
                 )
                 return
 
-        raise ValueError(f"Member with ID '{member.id}' was not found.")
+        raise MemberNotFoundError(f"Member with ID '{member.id}' not found.")
 
     def delete(self, member_id: str) -> None:
         members = self.get_all()
@@ -68,7 +68,7 @@ class MemberRepository:
         ]
 
         if len(updated_members) == len(members):
-            raise ValueError(f"Member with ID '{member_id}' was not found.")
+            raise MemberNotFoundError(f"Member with ID '{member_id}' not found.")
 
         self._repository.replace_all(
             [item.to_dict() for item in updated_members]

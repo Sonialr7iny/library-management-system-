@@ -20,3 +20,6 @@ class MemberNotFoundError(LibraryException):
 
 class BookUnavailableError(LibraryException):
     pass
+
+class LoanNotFoundError(LibraryException):
+    pass

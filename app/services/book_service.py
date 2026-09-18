@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from app.core.exceptions import  ValidationError
+from app.core.exceptions import ValidationError
 from app.models import Book, State
-from app.repositories import BookRepository
+from app.repositories.book_repository import BookRepository
+
 
 class BookService:
     def __init__(self, book_repository: BookRepository):
@@ -17,7 +18,7 @@ class BookService:
         return self.book_repository.save(Book(title, author_name, category, state))
 
     def list_books(self) -> list[Book]:
-        return sorted(self.book_repository.list(), key=lambda book: book.id)
+        return sorted(self.book_repository.get_all(), key=lambda book: book.id)
 
     def search_by_title(self, title: str) -> list[Book]:
         title = title.strip().upper()
@@ -43,7 +44,7 @@ class BookService:
         *,
         state: State | None = None,
     ) -> Book:
-        current_book = self.book_repository.get(book_id)
+        current_book = self.book_repository.get_by_id(book_id)
         title = title.strip().upper()
         author_name = author_name.strip()
         category = category.strip()
@@ -71,5 +72,3 @@ class BookService:
     def _validate_search_value(value: str) -> None:
         if not value:
             raise ValidationError("Search value cannot be empty")
-
-  

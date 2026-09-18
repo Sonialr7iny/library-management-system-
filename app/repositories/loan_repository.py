@@ -6,38 +6,32 @@ class LoanRepository:
     def __init__(self,repository:JsonRepository):
         self.repository=repository
 
-    def get_all(self):
-        return self.repository.get_all()
+    def get_all(self) -> list[Loan]:
+        data=self.repository.get_all()
+        return [Loan.from_dict(item) for item in data]
 
-    def find_by_id(self,loan_id:str):
-        loans=self.repository.get_all()
-
-        for loan in loans:
-            if loan["id"]==loan_id:
+    def get_by_id(self, loan_id: str) -> Loan | None:
+        for loan in self.get_all():
+            if loan.id == loan_id:
                 return loan
         return None
 
-    def git_active_loans(self):
-        loans=self.repository.get_all()
-        active_loans=[]
+    def get_active_loans(self) -> list[Loan]:
+        return [loan for loan in self.get_all() if loan.return_date is None]
 
-        for loan in loans:
-            if loan["return_date"]is None:
-                active_loans.append(loan)
-        return active_loans
-
-    def add_loan(self,loan:Loan) -> None:
+    def add(self, loan: Loan) -> Loan:
         loans=self.repository.get_all()
         loans.append(loan.to_dict())
         self.repository.replace_all(loans)   
+        return loan
 
-    def update_loan(self,loan_id:str,update_loan:Loan)-> None:
+    def update(self, loan: Loan)-> None:
         loans=self.repository.get_all()
 
-        for i,loan in enumerate(loans):
-            if loan["id"]==update_loan.id:
-                loans[i]=update_loan.to_dict()
-            self.repository.replace_all(loans)
-            return            
+        for index, existing_loan in enumerate(loans):
+            if existing_loan["id"] == loan.id:
+                loans[index] = loan.to_dict()
+                self.repository.replace_all(loans)
+                return            
         
 
